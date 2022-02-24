@@ -8,7 +8,9 @@ import {
   workspace,
   commands,
 } from 'coc.nvim';
-import { convertSymbols, positionInRange, SymbolInfo } from './util';
+import { positionInRange } from './util/pos';
+import { convertSymbols, SymbolInfo } from './util/symbol';
+import { registerRuntimepath } from './util/vim';
 
 class DocumentSymbolLine {
   private tokenSource: CancellationTokenSource | undefined;
@@ -73,13 +75,13 @@ class DocumentSymbolLine {
       const sep = line == '' ? '' : ' > ';
       const id = `${bufnr}989${index}`;
       if (label) {
-        line += `%#Normal#${sep}%#CocSymbol${symbol.kind}#${label} %#Normal#%${id}@CocSymbolLineClick@${symbol.text}%X`;
+        line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@CocSymbolLineClick@${symbol.text}%X`;
       } else {
-        line += `%#Normal#${sep}%#Normal#%${id}@CocSymbolLineClick@${symbol.text}%X`;
+        line += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@CocSymbolLineClick@${symbol.text}%X`;
       }
     });
     if (line == '') {
-      line = `%#CocSymbolFile#${this.labels.file || '▤'} %#Normal#%f`;
+      line = `%#CocSymbolLineFile#${this.labels.file || '▤'} %#CocSymbolLine#%f`;
     }
     const buffer = workspace.getDocument(bufnr).buffer;
     try {
@@ -128,13 +130,11 @@ class DocumentSymbolLine {
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const { nvim } = workspace;
-  await nvim.command(
-    `execute "function! g:CocSymbolLineClick(minwid, clicks, mouse, modifiers)
-    call CocAction('runCommand', 'symbol-line._click', a:minwid)
-endfunction"`
-  );
-  const hasWinBar = (await nvim.call('exists', '*nvim__win_set_bar')) == 1;
 
+  await registerRuntimepath(context.extensionPath);
+  await nvim.command('runtime plugin/coc_symbol_line.vim');
+
+  const hasWinBar = (await nvim.call('exists', '*nvim__win_set_bar')) == 1;
   const symbolLine = new DocumentSymbolLine();
   let wins: number[] = [];
 
@@ -145,7 +145,7 @@ endfunction"`
         const winid = await nvim.call('bufwinid', bufnr);
         const doc = workspace.getDocument(bufnr);
         if (!wins.includes(winid) && doc && doc.attached) {
-          nvim.call('nvim__win_set_bar', [winid, true, '%{%get(b:, "coc_symbol_line", "%#Normal#")%}'], true);
+          nvim.call('nvim__win_set_bar', [winid, true, '%{%get(b:, "coc_symbol_line", "%#CocSymbolLine#")%}'], true);
           wins.push(winid);
         }
       }

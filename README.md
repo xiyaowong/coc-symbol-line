@@ -1,5 +1,4 @@
-# WIP
-
+# coc-symbol-line(WIP)
 
 ![demo](https://user-images.githubusercontent.com/47070852/155291646-ec1f5623-63ab-4ff5-a48e-cd9670e5c39e.gif)
 
@@ -7,9 +6,16 @@ This plugin is an attempt to [neovim's winbar](https://github.com/neovim/neovim/
 
 It can be used for tabline&statusline. If you are interested, you can install this extension
 
-Install:  `:CocInstall coc-symbol-line`
+## Install
 
-Setup: add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline
+`:CocInstall coc-symbol-line`
+
+## Setup
+
+add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline
+
+<details>
+<summary>lua snippet</summary>
 
 ```lua
 function _G.symbol_line()
@@ -21,6 +27,13 @@ end
 
 vim.o.tabline = '%!v:lua.symbol_line()'
 vim.o.statusline = '%!v:lua.symbol_line()'
+
 ```
 
-Most of code is copied from coc.nvim:)
+</details>
+
+## Highlights
+
+- `CocSymbolLine`
+
+Most of code is copied from coc.nvim :)
