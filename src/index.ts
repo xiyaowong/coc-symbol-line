@@ -117,9 +117,9 @@ class DocumentSymbolLine {
     nvim.call('coc#cursor#move_to', [pos.line, pos.character], true);
     nvim.command(`normal! zz`, true);
     const buf = nvim.createBuffer(bufnr);
-    buf.highlightRanges('outline-hover', 'CocHoverRange', [symbol.selectionRange!]);
+    buf.highlightRanges('symbol-line-hover', 'CocHoverRange', [symbol.selectionRange!]);
     setTimeout(() => {
-      buf.clearNamespace('outline-hover');
+      buf.clearNamespace('symbol-line-hover');
       nvim.command('redraw', true);
     }, 300);
     nvim.command('redraw', true);
