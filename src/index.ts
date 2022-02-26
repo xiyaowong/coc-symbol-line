@@ -75,9 +75,9 @@ class DocumentSymbolLine {
       const sep = line == '' ? '' : ' > ';
       const id = `${bufnr}989${index}`;
       if (label) {
-        line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@CocSymbolLineClick@${symbol.text}%X`;
+        line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
       } else {
-        line += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@CocSymbolLineClick@${symbol.text}%X`;
+        line += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
       }
     });
     if (line == '') {
