@@ -4,7 +4,7 @@
 
 This plugin is an attempt to [neovim's winbar](https://github.com/neovim/neovim/pull/17336)
 
-It can be used for tabline&statusline. If you are interested, you can install this extension
+It can be used for tabline&statusline. Should support both neovim and vim.
 
 ## Install
 
@@ -15,7 +15,7 @@ It can be used for tabline&statusline. If you are interested, you can install th
 add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline
 
 <details>
-<summary>lua snippet</summary>
+<summary>lua snippet for neovim</summary>
 
 ```lua
 function _G.symbol_line()
