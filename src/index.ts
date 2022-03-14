@@ -35,7 +35,7 @@ class DocumentSymbolLine {
     return convertSymbols(symbols);
   }
 
-  public async getSymbol(bufnr: number): Promise<SymbolInfo[] | undefined> {
+  public async getSymbols(bufnr: number): Promise<SymbolInfo[] | undefined> {
     let symbols = await this.getDocumentSymbols(bufnr);
     if (!symbols || symbols.length === 0) return;
 
@@ -65,7 +65,7 @@ class DocumentSymbolLine {
   }
 
   public async refresh(bufnr: number) {
-    const symbols = await this.getSymbol(bufnr);
+    const symbols = await this.getSymbols(bufnr);
     if (!symbols) return;
     this.state[bufnr] = symbols;
 

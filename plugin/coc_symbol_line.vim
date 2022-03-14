@@ -13,5 +13,5 @@ call timer_start(3000, { -> coc_symbol_line#set_highlight() })
 
 augroup CocSymbolLine
   autocmd!
-  autocmd VimEnter,ColorScheme * call coc_symbol_line#set_highlight()
+  autocmd VimEnter,ColorScheme * call timer_start(3000, { -> coc_symbol_line#set_highlight() })
 augroup END
