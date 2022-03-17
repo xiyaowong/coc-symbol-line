@@ -1,10 +1,13 @@
-# coc-symbol-line(WIP)
+# coc-symbol-line
 
 ![demo](https://user-images.githubusercontent.com/47070852/155291646-ec1f5623-63ab-4ff5-a48e-cd9670e5c39e.gif)
 
 This plugin is an attempt to [neovim's winbar](https://github.com/neovim/neovim/pull/17336)
 
-It can be used for tabline&statusline. Should support both neovim and vim.
+But it doesn't mean that only neovim with winbar support can use this
+extension
+
+**It can be used for tabline&statusline. Should support both neovim and vim.**
 
 ## Install
 
