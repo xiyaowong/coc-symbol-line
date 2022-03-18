@@ -44,7 +44,13 @@
     "configuration": {
       "type": "object",
       "title": "coc-symbol-line configuration",
-      "properties": {}
+      "properties": {
+        "symbol-line.default": {
+          "type": "string",
+          "default": "",
+          "description": "Default line when symbol-line is empty. Use `%f` by default. You can use `%#CocSymbolLine#` for unified highlighting"
+        }
+      }
     },
     "commands": []
   }

@@ -18,6 +18,7 @@ class DocumentSymbolLine {
   public get labels(): { [key: string]: string } {
     return workspace.getConfiguration('suggest').get<any>('completionItemKindLabels', {});
   }
+  private default = workspace.getConfiguration('symbol-line').get<string>('default');
 
   public async getDocumentSymbols(bufnr: number): Promise<SymbolInfo[] | undefined> {
     const doc = workspace.getDocument(bufnr);
@@ -81,7 +82,10 @@ class DocumentSymbolLine {
       }
     });
     if (line == '') {
-      line = `%#CocSymbolLineFile#${this.labels.file || '▤'} %#CocSymbolLine#%f`;
+      line =
+        this.default && this.default.length > 0
+          ? `%#CocSymbolLine#${this.default}`
+          : `%#CocSymbolLineFile#${this.labels.file || '▤'} %#CocSymbolLine#%f`;
     }
     const buffer = workspace.getDocument(bufnr).buffer;
     try {
