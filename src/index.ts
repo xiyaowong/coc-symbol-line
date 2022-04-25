@@ -102,7 +102,7 @@ class DocumentSymbolLine {
     });
   }
 
-  public async click(id: number) {
+  public async click(id: number, mouse: 'l' | 'm' | 'r') {
     const items = id
       .toString()
       .split('989')
@@ -122,13 +122,17 @@ class DocumentSymbolLine {
     const pos = symbol.selectionRange!.start;
     nvim.call('coc#cursor#move_to', [pos.line, pos.character], true);
     nvim.command(`normal! zz`, true);
-    const buf = nvim.createBuffer(bufnr);
-    buf.highlightRanges('symbol-line-hover', 'CocHoverRange', [symbol.selectionRange!]);
-    setTimeout(() => {
-      buf.clearNamespace('symbol-line-hover');
+    if (mouse == 'l') {
+      const buf = nvim.createBuffer(bufnr);
+      buf.highlightRanges('symbol-line-hover', 'CocHoverRange', [symbol.selectionRange!]);
+      setTimeout(() => {
+        buf.clearNamespace('symbol-line-hover');
+        nvim.command('redraw', true);
+      }, 300);
       nvim.command('redraw', true);
-    }, 300);
-    nvim.command('redraw', true);
+    } else {
+      workspace.selectRange(symbol.range);
+    }
   }
 }
 
@@ -184,8 +188,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(
     commands.registerCommand(
       'symbol-line._click',
-      async (id: number) => {
-        await symbolLine.click(id);
+      async (id, mouse) => {
+        await symbolLine.click(id, mouse);
       },
       null,
       true

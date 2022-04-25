@@ -1,5 +1,5 @@
 function! coc_symbol_line#click(minwid, clicks, mouse, modifiers)
-  call CocAction('runCommand', 'symbol-line._click', a:minwid)
+  call CocAction('runCommand', 'symbol-line._click', a:minwid, a:mouse)
 endfunction
 
 function! s:get_hl_attr(groups, attr)

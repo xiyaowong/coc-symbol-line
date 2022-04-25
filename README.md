@@ -35,6 +35,11 @@ vim.o.statusline = '%!v:lua.symbol_line()'
 
 </details>
 
+## Usage
+
+Left click to jump to the position of this symbol.
+Right click to select the range of this symbol.
+
 ## Highlights
 
 - `CocSymbolLine`
