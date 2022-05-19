@@ -2,20 +2,14 @@
 
 ![demo](https://user-images.githubusercontent.com/47070852/155291646-ec1f5623-63ab-4ff5-a48e-cd9670e5c39e.gif)
 
-This plugin is an attempt to [neovim's winbar](https://github.com/neovim/neovim/pull/17336)
-
-But it doesn't mean that only neovim with winbar support can use this
-extension
-
-**It can be used for tabline&statusline. Should support both neovim and vim.**
-
 ## Install
 
 `:CocInstall coc-symbol-line`
 
 ## Setup
 
-add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline
+add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline or
+neovim's winbar
 
 <details>
 <summary>lua snippet for neovim</summary>
@@ -36,6 +30,8 @@ vim.o.statusline = '%!v:lua.symbol_line()'
 </details>
 
 ## Usage
+
+This plugin only provide buffer localed variable `coc_symbol_line`
 
 Left click to jump to the position of this symbol.
 Right click to select the range of this symbol.

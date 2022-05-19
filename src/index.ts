@@ -142,35 +142,18 @@ export async function activate(context: ExtensionContext): Promise<void> {
   await registerRuntimepath(context.extensionPath);
   await nvim.command('runtime plugin/coc_symbol_line.vim');
 
-  const hasWinBar = (await nvim.call('exists', '*nvim__win_set_bar')) == 1;
   const symbolLine = new DocumentSymbolLine();
-  let wins: number[] = [];
 
   events.on(
     'CursorHold',
     async (bufnr) => {
-      if (hasWinBar) {
-        const winid = await nvim.call('bufwinid', bufnr);
-        const doc = workspace.getDocument(bufnr);
-        if (!wins.includes(winid) && doc && doc.attached) {
-          nvim.call('nvim__win_set_bar', [winid, true, '%{%get(b:, "coc_symbol_line", "%#CocSymbolLine#")%}'], true);
-          wins.push(winid);
-        }
-      }
       await symbolLine.refresh(bufnr);
     },
     null,
     context.subscriptions
   );
 
-  const timer = setInterval(async () => {
-    const validWins: number[] = [];
-    wins.forEach(async (win) => {
-      const wininfo = await nvim.call('getwininfo', win);
-      if (wininfo && wininfo.length > 0) validWins.push(win);
-    });
-    wins = validWins;
-
+  const timerClean = setInterval(async () => {
     await symbolLine.clean();
   }, 10e3);
 
@@ -180,7 +163,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push({
     dispose() {
-      clearInterval(timer);
+      clearInterval(timerClean);
       clearInterval(timerRedraw);
     },
   });
