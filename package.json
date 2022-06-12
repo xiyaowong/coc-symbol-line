@@ -49,6 +49,11 @@
           "type": "string",
           "default": "%f",
           "description": "Default line when symbol-line is empty. Use `%f` by default. You can use `%#CocSymbolLine#` for unified highlighting"
+        },
+        "symbol-line.separator": {
+          "type": "string",
+          "default": " > ",
+          "description": "Separator between items"
         }
       }
     },

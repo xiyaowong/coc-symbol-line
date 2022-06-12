@@ -19,6 +19,7 @@ class DocumentSymbolLine {
     return workspace.getConfiguration('suggest').get<any>('completionItemKindLabels', {});
   }
   private default = workspace.getConfiguration('symbol-line').get<string>('default')!;
+  private separator = workspace.getConfiguration('symbol-line').get<string>('separator')!;
 
   public async getDocumentSymbols(bufnr: number): Promise<SymbolInfo[] | undefined> {
     const doc = workspace.getDocument(bufnr);
@@ -73,7 +74,7 @@ class DocumentSymbolLine {
     let line = '';
     symbols.forEach((symbol, index) => {
       const label = this.labels[symbol.kind.toLowerCase()];
-      const sep = line == '' ? '' : ' > ';
+      const sep = line == '' ? '' : this.separator;
       const id = `${bufnr}989${index}`;
       if (label) {
         line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;

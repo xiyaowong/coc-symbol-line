@@ -36,6 +36,11 @@ This plugin only provide buffer localed variable `coc_symbol_line`
 Left click to jump to the position of this symbol.
 Right click to select the range of this symbol.
 
+## Options
+
+- `symbol-line.default`
+- `symbol-line.separator`
+
 ## Highlights
 
 - `CocSymbolLine`
