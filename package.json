@@ -47,7 +47,7 @@
       "properties": {
         "symbol-line.default": {
           "type": "string",
-          "default": "",
+          "default": "%f",
           "description": "Default line when symbol-line is empty. Use `%f` by default. You can use `%#CocSymbolLine#` for unified highlighting"
         }
       }
