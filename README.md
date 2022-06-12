@@ -24,6 +24,7 @@ end
 
 vim.o.tabline = '%!v:lua.symbol_line()'
 vim.o.statusline = '%!v:lua.symbol_line()'
+vim.o.winbar = '%!v:lua.symbol_line()'
 
 ```
 
