@@ -1,4 +1,6 @@
 hi default link CocSymbolLine              Normal
+hi default link CocSymbolLineSeparator     CocSymbolLine
+
 hi default link CocSymbolLineFile          CocSymbolFile
 hi default link CocSymbolLineClass         CocSymbolClass
 hi default link CocSymbolLineMethod        CocSymbolMethod

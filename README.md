@@ -45,5 +45,10 @@ Right click to select the range of this symbol.
 ## Highlights
 
 - `CocSymbolLine`
+- `CocSymbolLineSeparator`
+
+You should setup highlights before this extension activated.
+
+---
 
 Most of code is copied from coc.nvim :)

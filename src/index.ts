@@ -89,7 +89,7 @@ class DocumentSymbolLine implements Disposable {
     let line = '';
     symbols.forEach((symbol, index) => {
       const label = this.labels[symbol.kind.toLowerCase()];
-      const sep = line == '' ? '' : this.separator;
+      const sep = line == '' ? '' : `%#CocSymbolLineSeparator#${this.separator}`;
       const id = `${bufnr}989${index}`;
       if (label) {
         line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
