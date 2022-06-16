@@ -1,5 +1,4 @@
-import { SymbolInformation } from 'coc.nvim';
-import { SymbolKind, DocumentSymbol, Range } from 'vscode-languageserver-protocol';
+import { SymbolKind, DocumentSymbol, Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { comparePosition } from './pos';
 
 export interface SymbolInfo {
