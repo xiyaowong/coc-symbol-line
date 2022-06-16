@@ -1,3 +1,4 @@
+import { SymbolInformation } from 'coc.nvim';
 import { SymbolKind, DocumentSymbol, Range } from 'vscode-languageserver-protocol';
 import { comparePosition } from './pos';
 
@@ -72,12 +73,40 @@ export function getSymbolKind(kind: SymbolKind): string {
   }
 }
 
-export function convertSymbols(symbols: DocumentSymbol[]): SymbolInfo[] {
+export function isSymbols(symbols: DocumentSymbol[] | SymbolInformation[]): symbols is DocumentSymbol[] {
+  return !symbols[0].hasOwnProperty('location');
+}
+
+export function convertSymbols(symbols: DocumentSymbol[] | SymbolInformation[]): SymbolInfo[] {
   const res: SymbolInfo[] = [];
-  const arr = symbols.slice();
-  arr.sort(sortDocumentSymbols);
-  arr.forEach((s) => addDocumentSymbol(res, s, 0));
+  if (isSymbols(symbols)) {
+    const arr = symbols.slice();
+    arr.sort(sortDocumentSymbols);
+    arr.forEach((s) => addDocumentSymbol(res, s, 0));
+  } else {
+    const arr = symbols.slice();
+    arr.sort(sortSymbols);
+    arr.forEach((s) => addSymbol(res, s));
+  }
   return res;
+}
+
+export function sortSymbols(a: SymbolInformation, b: SymbolInformation): number {
+  const sa = a.location.range.start;
+  const sb = b.location.range.start;
+  const d = sa.line - sb.line;
+  return d == 0 ? sa.character - sb.character : d;
+}
+
+export function addSymbol(res: SymbolInfo[], sym: SymbolInformation) {
+  res.push({
+    col: sym.location.range.start.character + 1,
+    lnum: sym.location.range.start.line + 1,
+    text: sym.name,
+    kind: getSymbolKind(sym.kind),
+    range: sym.location.range,
+    selectionRange: sym.location.range,
+  });
 }
 
 export function sortDocumentSymbols(a: DocumentSymbol, b: DocumentSymbol): number {
