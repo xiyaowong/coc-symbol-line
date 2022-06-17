@@ -60,6 +60,15 @@
           "default": true,
           "description": "Render Symbol-Line Elements with Icons."
         },
+        "symbol-line.onlyNearestKinds": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "Shows only the nearest one. Available items: 'File','Module','Namespace','Package','Class','Method','Property','Field','Constructor','Enum','Interface','Function','Variable','Constant','String','Number','Boolean','Array','Object','Key','Null','EnumMember','Struct','Event','Operator','TypeParameter'"
+        },
         "symbol-line.showFiles": {
           "type": "boolean",
           "default": true,

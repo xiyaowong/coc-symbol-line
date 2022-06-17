@@ -39,6 +39,7 @@ class Config {
   public separator = ' > ';
   public icons = true;
   public showKinds: string[] = [];
+  public onlyNearestKinds: string[] = [];
 
   setConfiguration() {
     this.labels = workspace.getConfiguration('suggest').get<any>('completionItemKindLabels', {});
@@ -47,6 +48,7 @@ class Config {
 
     this.default_ = config.get<string>('default')!;
     this.separator = config.get<string>('separator')!;
+    this.onlyNearestKinds = config.get<string[]>('onlyNearestKinds')!;
 
     const checkBoolean = (key: string) => config.get<boolean>(key)!;
 

@@ -57,14 +57,14 @@ class DocumentSymbolLine implements Disposable {
         positionInRange(position, s.range) == 0
     );
 
-    // TODO: provide a option for this
-    // only need the nearest variable, property
+    if (!config.onlyNearestKinds.length) return symbols;
+    // only need the nearest kinds
     const newSymbols: SymbolInfo[] = [];
     symbols.forEach((symbol) => {
       const count = newSymbols.length;
       if (count === 0) {
         newSymbols.push(symbol);
-      } else if (['Variable'].includes(symbol.kind) && newSymbols[count - 1].kind == symbol.kind) {
+      } else if (config.onlyNearestKinds.includes(symbol.kind) && newSymbols[count - 1].kind == symbol.kind) {
         newSymbols[count - 1] = symbol;
       } else {
         newSymbols.push(symbol);
