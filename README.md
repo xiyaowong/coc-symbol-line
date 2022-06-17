@@ -41,6 +41,8 @@ Right click to select the range of this symbol.
 
 - `symbol-line.default`
 - `symbol-line.separator`
+- `symbol-line.icons`
+- `symbol-line.show{Kind}s`
 
 ## Highlights
 

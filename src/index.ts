@@ -1,14 +1,15 @@
 import {
   CancellationTokenSource,
-  DocumentSymbol,
-  events,
-  window,
-  ExtensionContext,
-  languages,
-  workspace,
   commands,
   Disposable,
+  DocumentSymbol,
+  events,
+  ExtensionContext,
+  languages,
+  window,
+  workspace,
 } from 'coc.nvim';
+import { config } from './config';
 import { positionInRange } from './util/pos';
 import { convertSymbols, SymbolInfo } from './util/symbol';
 import { registerRuntimepath } from './util/vim';
@@ -17,23 +18,13 @@ class DocumentSymbolLine implements Disposable {
   private readonly disposables: Disposable[] = [];
   private tokenSource: CancellationTokenSource | undefined;
   private state: { [key: number]: SymbolInfo[] } = {};
-  private labels: { [key: string]: string } = {};
-  private default = '%f';
-  private separator = ' > ';
 
   constructor() {
-    this.setConfiguration();
-    workspace.onDidChangeConfiguration(this.setConfiguration, this, this.disposables);
-  }
-  dispose(): void {
-    this.disposables.forEach((d) => d.dispose());
+    workspace.onDidChangeConfiguration(() => config.setConfiguration(), this, this.disposables);
   }
 
-  private setConfiguration() {
-    this.labels = workspace.getConfiguration('suggest').get<any>('completionItemKindLabels', {});
-    const config = workspace.getConfiguration('symbol-line');
-    this.default = config.get<string>('default')!;
-    this.separator = config.get<string>('separator')!;
+  dispose(): void {
+    this.disposables.forEach((d) => d.dispose());
   }
 
   private async getDocumentSymbols(bufnr: number): Promise<SymbolInfo[] | undefined> {
@@ -57,14 +48,16 @@ class DocumentSymbolLine implements Disposable {
     if (!symbols || symbols.length === 0) return;
 
     const position = await window.getCursorPosition();
+    const { showKinds } = config;
     symbols = symbols.filter(
       (s) =>
         s.range &&
-        ['Class', 'Method', 'Function', 'Struct', 'Property', 'Variable'].includes(s.kind) &&
+        showKinds.includes(s.kind) &&
         // !s.text.endsWith(') callback') &&
         positionInRange(position, s.range) == 0
     );
 
+    // TODO: provide a option for this
     // only need the nearest variable, property
     const newSymbols: SymbolInfo[] = [];
     symbols.forEach((symbol) => {
@@ -86,10 +79,13 @@ class DocumentSymbolLine implements Disposable {
     if (!symbols) return;
     this.state[bufnr] = symbols;
 
+    const { icons, labels, default_, separator } = config;
+
     let line = '';
     symbols.forEach((symbol, index) => {
-      const label = this.labels[symbol.kind.toLowerCase()];
-      const sep = line == '' ? '' : `%#CocSymbolLineSeparator#${this.separator}`;
+      const label = icons ? labels[symbol.kind.toLowerCase()] : '';
+      console.log(`icons => ${icons} label => ${label}`);
+      const sep = line == '' ? '' : `%#CocSymbolLineSeparator#${separator}`;
       const id = `${bufnr}989${index}`;
       if (label) {
         line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
@@ -98,8 +94,8 @@ class DocumentSymbolLine implements Disposable {
       }
     });
     if (line == '') {
-      if (this.default === '%f') line = `%#CocSymbolLineFile#${this.labels.file || '▤'} %#CocSymbolLine#%f`;
-      if (this.default.length > 0) line = '%#CocSymbolLine#' + line;
+      if (default_ === '%f') line = `%#CocSymbolLineFile#${icons ? labels.file || '▤' : ''} %#CocSymbolLine#%f`;
+      if (default_.length > 0) line = '%#CocSymbolLine#' + line;
     }
     const buffer = workspace.getDocument(bufnr).buffer;
     try {

@@ -2,7 +2,7 @@ function! coc_symbol_line#click(minwid, clicks, mouse, modifiers)
   call CocAction('runCommand', 'symbol-line._click', a:minwid, a:mouse)
 endfunction
 
-function! s:get_hl_attr(groups, attr)
+function! s:a(groups, attr) " get highlight attribute
   for group in a:groups
     let ret = synIDattr(synIDtrans(hlID(group)), a:attr)
     if ret != ''
@@ -12,15 +12,35 @@ function! s:get_hl_attr(groups, attr)
 endfunction
 
 function! coc_symbol_line#set_highlight()
-  let bg = s:get_hl_attr(['CocSymbolLine'], 'bg')
+  let bg = s:a(['CocSymbolLine'], 'bg')
 
-  exe 'hi! CocSymbolLineSeparator  guifg='.s:get_hl_attr(['CocSymbolLineSeparator', 'CocSymbolLine'], 'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineSeparator     guifg='.s:a(['CocSymbolLineSeparator',  'CocSymbolLine'], 'fg') .' guibg='.bg
 
-  exe 'hi! CocSymbolLineFile       guifg='.s:get_hl_attr(['CocSymbolFile', 'Statement'], 'fg')              .' guibg='.bg
-  exe 'hi! CocSymbolLineClass      guifg='.s:get_hl_attr(['CocSymbolClass', 'TSType'], 'fg')                .' guibg='.bg
-  exe 'hi! CocSymbolLineMethod     guifg='.s:get_hl_attr(['CocSymbolMethod', 'TSMethod'], 'fg')             .' guibg='.bg
-  exe 'hi! CocSymbolLineFunction   guifg='.s:get_hl_attr(['CocSymbolFunction', 'TSFunction'], 'fg')         .' guibg='.bg
-  exe 'hi! CocSymbolLineStruct     guifg='.s:get_hl_attr(['CocSymbolStruct', 'TSStructure'], 'fg')          .' guibg='.bg
-  exe 'hi! CocSymbolLineProperty   guifg='.s:get_hl_attr(['CocSymbolProperty', 'TSProperty'], 'fg')         .' guibg='.bg
-  exe 'hi! CocSymbolLineVariable   guifg='.s:get_hl_attr(['CocSymbolVariable', 'TSVariable'], 'fg')         .' guibg='.bg
+  exe 'hi! CocSymbolLineFile          guifg='.s:a(['CocSymbolFile',           'Statement'],     'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineModule        guifg='.s:a(['CocSymbolModule'],        'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineNamespace     guifg='.s:a(['CocSymbolNamespace',      'TSNamespace'],   'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLinePackage       guifg='.s:a(['CocSymbolPackage'],       'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineClass         guifg='.s:a(['CocSymbolClass',          'TSType'],        'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineMethod        guifg='.s:a(['CocSymbolMethod',         'TSMethod'],      'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineProperty      guifg='.s:a(['CocSymbolProperty',       'TSProperty'],    'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineField         guifg='.s:a(['CocSymbolField',          'TSField'],       'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineConstructor   guifg='.s:a(['CocSymbolConstructor'],   'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineEnum          guifg='.s:a(['CocSymbolEnum'],          'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineInterface     guifg='.s:a(['CocSymbolInterface'],     'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineFunction      guifg='.s:a(['CocSymbolFunction',       'TSFunction'],    'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineVariable      guifg='.s:a(['CocSymbolVariable',       'TSVariable'],    'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineConstant      guifg='.s:a(['CocSymbolConstant',       'TSConstant'],    'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineString        guifg='.s:a(['CocSymbolString',         'TSString'],      'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineNumber        guifg='.s:a(['CocSymbolNumber',         'TSNumber'],      'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineBoolean       guifg='.s:a(['CocSymbolBoolean',        'TSBoolean'],     'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineArray         guifg='.s:a(['CocSymbolArray'],         'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineObject        guifg='.s:a(['CocSymbolObject'],        'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineKey           guifg='.s:a(['CocSymbolKey',            'TSKeyword'],     'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineNull          guifg='.s:a(['CocSymbolNull'],          'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineEnumMember    guifg='.s:a(['CocSymbolEnumMember'],    'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineStruct        guifg='.s:a(['CocSymbolStruct',         'TSStructure'],   'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineEvent         guifg='.s:a(['CocSymbolEvent'],         'fg')             .'    guibg='.bg
+  exe 'hi! CocSymbolLineOperator      guifg='.s:a(['CocSymbolOperator',       'TSOperator'],    'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineTypeParameter guifg='.s:a(['CocSymbolTypeParameter'], 'fg')             .'    guibg='.bg
+
 endfunction

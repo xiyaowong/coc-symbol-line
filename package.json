@@ -54,6 +54,141 @@
           "type": "string",
           "default": " > ",
           "description": "Separator between items"
+        },
+        "symbol-line.icons": {
+          "type": "boolean",
+          "default": true,
+          "description": "Render Symbol-Line Elements with Icons."
+        },
+        "symbol-line.showFiles": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `file`-symbols."
+        },
+        "symbol-line.showModules": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `module`-symbols."
+        },
+        "symbol-line.showNamespaces": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `namespace`-symbols."
+        },
+        "symbol-line.showPackages": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `package`-symbols."
+        },
+        "symbol-line.showClasses": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `class`-symbols."
+        },
+        "symbol-line.showMethods": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `method`-symbols."
+        },
+        "symbol-line.showProperties": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `property`-symbols."
+        },
+        "symbol-line.showFields": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `field`-symbols."
+        },
+        "symbol-line.showConstructors": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `constructor`-symbols."
+        },
+        "symbol-line.showEnums": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `enum`-symbols."
+        },
+        "symbol-line.showInterfaces": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `interface`-symbols."
+        },
+        "symbol-line.showFunctions": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `function`-symbols."
+        },
+        "symbol-line.showVariables": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `variable`-symbols."
+        },
+        "symbol-line.showConstants": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `constant`-symbols."
+        },
+        "symbol-line.showStrings": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `string`-symbols."
+        },
+        "symbol-line.showNumbers": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `number`-symbols."
+        },
+        "symbol-line.showBooleans": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `boolean`-symbols."
+        },
+        "symbol-line.showArrays": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `array`-symbols."
+        },
+        "symbol-line.showObjects": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `object`-symbols."
+        },
+        "symbol-line.showKeys": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `key`-symbols."
+        },
+        "symbol-line.showNull": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `null`-symbols."
+        },
+        "symbol-line.showEnumMembers": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `enumMember`-symbols."
+        },
+        "symbol-line.showStructs": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `struct`-symbols."
+        },
+        "symbol-line.showEvents": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `event`-symbols."
+        },
+        "symbol-line.showOperators": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `operator`-symbols."
+        },
+        "symbol-line.showTypeParameters": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "When enabled symbol-line shows `typeParameter`-symbols."
         }
       }
     },
