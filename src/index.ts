@@ -57,15 +57,21 @@ class DocumentSymbolLine implements Disposable {
         positionInRange(position, s.range) == 0
     );
 
-    if (!config.onlyNearestKinds.length) return symbols;
+    const { onlyNearestKinds } = config;
     // only need the nearest kinds
     const newSymbols: SymbolInfo[] = [];
     symbols.forEach((symbol) => {
       const count = newSymbols.length;
+      const lastIdx = count - 1;
       if (count === 0) {
         newSymbols.push(symbol);
-      } else if (config.onlyNearestKinds.includes(symbol.kind) && newSymbols[count - 1].kind == symbol.kind) {
-        newSymbols[count - 1] = symbol;
+      } else if (
+        (newSymbols[lastIdx].level != undefined && symbol.level != undefined
+          ? newSymbols[lastIdx].level == symbol.level
+          : false) ||
+        (onlyNearestKinds.includes(symbol.kind) && newSymbols[lastIdx].kind == symbol.kind)
+      ) {
+        newSymbols[lastIdx] = symbol;
       } else {
         newSymbols.push(symbol);
       }
