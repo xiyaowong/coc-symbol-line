@@ -71,6 +71,10 @@ Right click to select the range of this symbol.
 - `symbol-line.icons`
 - `symbol-line.show{Kind}s`
 - `symbol-line.onlyNearestKinds`
+- `symbol-line.maxItems`
+- `symbol-line.maxItemsIndicator`
+
+Please trigger completion in `coc-settings.json` to get details.
 
 ## Highlights
 
