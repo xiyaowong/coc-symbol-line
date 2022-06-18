@@ -1,6 +1,8 @@
 hi default link CocSymbolLine              Normal
 hi default link CocSymbolLineSeparator     NonText
 
+hi default link CocSymbolLineEllipsis      CocSymbolLine
+
 hi default link CocSymbolLineFile          CocSymbolFile
 hi default link CocSymbolLineModule        CocSymbolModule
 hi default link CocSymbolLineNamespace     CocSymbolNamespace

@@ -49,6 +49,7 @@ Right click to select the range of this symbol.
 
 - `CocSymbolLine`
 - `CocSymbolLineSeparator`
+- `CocSymbolLineEllipsis`
 
 You should setup highlights before this extension activated.
 

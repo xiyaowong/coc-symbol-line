@@ -40,6 +40,8 @@ class Config {
   public icons = true;
   public showKinds: string[] = [];
   public onlyNearestKinds: string[] = [];
+  public maxItems = 8;
+  public maxItemsIndicator = '…';
 
   setConfiguration() {
     this.labels = workspace.getConfiguration('suggest').get<any>('completionItemKindLabels', {});
@@ -49,6 +51,8 @@ class Config {
     this.default_ = config.get<string>('default')!;
     this.separator = config.get<string>('separator')!;
     this.onlyNearestKinds = config.get<string[]>('onlyNearestKinds')!;
+    this.maxItems = config.get<number>('maxItems')!;
+    this.maxItemsIndicator = config.get<string>('maxItemsIndicator')!;
 
     const checkBoolean = (key: string) => config.get<boolean>(key)!;
 

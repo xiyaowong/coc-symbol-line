@@ -79,27 +79,50 @@ class DocumentSymbolLine implements Disposable {
     if (!symbols) return;
     this.state[bufnr] = symbols;
 
-    const { icons, labels, default_, separator } = config;
+    const { icons, labels, default_, maxItems, separator, maxItemsIndicator } = config;
 
+    // const maxItems = Math.min(config.maxItems, symbols.length);
+
+    let fullLine = '';
     let line = '';
+    let addedEllipsis = false;
+    const totalItems = symbols.length;
+
     symbols.forEach((symbol, index) => {
       const label = icons ? labels[symbol.kind.toLowerCase()] ?? labels.default : '';
-      console.log(`icons => ${icons} label => ${label}`);
-      const sep = line == '' ? '' : `%#CocSymbolLineSeparator#${separator}`;
+      const sep = fullLine == '' ? '' : `%#CocSymbolLineSeparator#${separator}`;
       const id = `${bufnr}989${index}`;
       if (label) {
-        line += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
+        fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
       } else {
-        line += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
+        fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
+      }
+
+      // handle line
+      if (!addedEllipsis) {
+        const currentItems = index + 1;
+        const leftItems = totalItems - currentItems;
+        if (currentItems == maxItems && leftItems > 0) {
+          addedEllipsis = true;
+          line =
+            fullLine + `%#CocSymbolLine#${sep}%#CocSymbolLineEllipsis#%0@coc_symbol_line#expand@${maxItemsIndicator}%X`;
+        } else {
+          line = fullLine;
+        }
       }
     });
-    if (line == '') {
+
+    if (!line) {
       if (default_ === '%f') line = `%#CocSymbolLineFile#${icons ? labels.file || '▤' : ''} %#CocSymbolLine#%f`;
       if (default_.length > 0) line = '%#CocSymbolLine#' + line;
+      // not needed
+      if (line) fullLine = line;
     }
+
     const buffer = workspace.getDocument(bufnr).buffer;
     try {
       await buffer.setVar('coc_symbol_line', line);
+      await buffer.setVar('coc_symbol_line_full', fullLine);
     } catch (e) {}
   }
 

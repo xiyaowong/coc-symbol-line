@@ -2,6 +2,12 @@ function! coc_symbol_line#click(minwid, clicks, mouse, modifiers)
   call CocAction('runCommand', 'symbol-line._click', a:minwid, a:mouse)
 endfunction
 
+function! coc_symbol_line#expand(minwid, clicks, mouse, modifiers)
+  let line = get(b:, 'coc_symbol_line', '')
+  let b:coc_symbol_line = get(b:, 'coc_symbol_line_full', line)
+  redraw
+endfunction
+
 function! s:a(groups, attr) " get highlight attribute
   for group in a:groups
     let ret = synIDattr(synIDtrans(hlID(group)), a:attr)
@@ -15,6 +21,7 @@ function! coc_symbol_line#set_highlight()
   let bg = s:a(['CocSymbolLine'], 'bg')
 
   exe 'hi! CocSymbolLineSeparator     guifg='.s:a(['CocSymbolLineSeparator',  'CocSymbolLine'], 'fg') .' guibg='.bg
+  exe 'hi! CocSymbolLineEllipsis      guifg='.s:a(['CocSymbolLineEllipsis',   'CocSymbolLine'], 'fg') .' guibg='.bg
 
   exe 'hi! CocSymbolLineFile          guifg='.s:a(['CocSymbolFile',           'Statement'],     'fg') .' guibg='.bg
   exe 'hi! CocSymbolLineModule        guifg='.s:a(['CocSymbolModule'],        'fg')             .'    guibg='.bg
