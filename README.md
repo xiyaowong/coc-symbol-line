@@ -64,6 +64,8 @@ This plugin only provide buffer localed variable `coc_symbol_line`
 Left click to jump to the position of this symbol.
 Right click to select the range of this symbol.
 
+![usage](https://user-images.githubusercontent.com/47070852/174428903-ba7ba41b-e74c-4bc6-a96d-c0757cfaf515.gif)
+
 ## Options
 
 - `symbol-line.default`
