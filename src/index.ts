@@ -87,8 +87,6 @@ class DocumentSymbolLine implements Disposable {
 
     const { icons, labels, default_, maxItems, separator, maxItemsIndicator } = config;
 
-    // const maxItems = Math.min(config.maxItems, symbols.length);
-
     let fullLine = '';
     let line = '';
     let addedEllipsis = false;
@@ -99,7 +97,7 @@ class DocumentSymbolLine implements Disposable {
       const sep = fullLine == '' ? '' : `%#CocSymbolLineSeparator#${separator}`;
       const id = `${bufnr}989${index}`;
       if (label) {
-        fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
+        fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#%${id}@coc_symbol_line#click@${label} %#CocSymbolLine#${symbol.text}%X`;
       } else {
         fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
       }
