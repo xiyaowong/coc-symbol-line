@@ -40,18 +40,21 @@ function _G.symbol_line()
   return ok and '%#CocSymbolLine# ' .. line or ''
 end
 
-if vim.fn.exists '&winbar' then
-  vim.api.nvim_create_autocmd({ 'CursorHold', 'WinEnter', 'BufWinEnter' }, {
-    callback = function()
-      if vim.b.coc_symbol_line and vim.bo.buftype == '' then
-        if vim.wo.winbar == '' then
-          vim.wo.winbar = '%!v:lua.symbol_line()'
+if fn.exists '&winbar' then
+  AUTOCMD {
+    {
+      { 'CursorHold', 'WinEnter', 'BufWinEnter' },
+      function()
+        if vim.b.coc_symbol_line and vim.bo.buftype == '' then
+          if vim.opt_local.winbar:get() == '' then
+            vim.opt_local.winbar = '%!v:lua.symbol_line()'
+          end
+        else
+          vim.opt_local.winbar = ''
         end
-      else
-        vim.wo.winbar = ''
-      end
-    end,
-  })
+      end,
+    },
+  }
 end
 ```
 
