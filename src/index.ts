@@ -37,7 +37,7 @@ class DocumentSymbolLine implements Disposable {
     const { token } = this.tokenSource;
     //@ts-ignore
     const symbols: DocumentSymbol[] | undefined = await languages.getDocumentSymbol(doc.textDocument, token);
-    if (!symbols) {
+    if (!symbols || !symbols.length) {
       return;
     }
     return convertSymbols(symbols);
