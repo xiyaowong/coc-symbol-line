@@ -73,7 +73,7 @@ export function getSymbolKind(kind: SymbolKind): string {
 }
 
 export function isSymbols(symbols: DocumentSymbol[] | SymbolInformation[]): symbols is DocumentSymbol[] {
-  return !symbols[0].hasOwnProperty('location');
+  return !Object.prototype.hasOwnProperty.call(symbols[0], 'location');
 }
 
 export function convertSymbols(symbols: DocumentSymbol[] | SymbolInformation[]): SymbolInfo[] {
