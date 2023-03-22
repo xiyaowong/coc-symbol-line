@@ -87,26 +87,30 @@ class DocumentSymbolLine implements Disposable {
 
     const { icons, labels, default_, maxItems, separator, maxItemsIndicator } = config;
 
-    let fullLine = '';
     let line = '';
+    let fullLine = '';
+    let plainLine = '';
+    let plainFullLine = '';
+
     let addedEllipsis = false;
     const totalItems = symbols.length;
-
     symbols.forEach((symbol, index) => {
       let label = '';
       if (icons) {
         label = labels[symbol.kind.toLowerCase()];
         if (typeof label !== 'string') label = labels.default;
       }
-      const sep = fullLine == '' ? '' : `%#CocSymbolLineSeparator#${separator}`;
+      const sep = index == 0 ? '' : `%#CocSymbolLineSeparator#${separator}`;
       const id = `${bufnr}989${index}`;
       if (label) {
         fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#%${id}@coc_symbol_line#click@${label} %#CocSymbolLine#${symbol.text}%X`;
+        plainFullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine${symbol.kind}#${label} %#CocSymbolLine#${symbol.text}`;
       } else {
         fullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine#%${id}@coc_symbol_line#click@${symbol.text}%X`;
+        plainFullLine += `%#CocSymbolLine#${sep}%#CocSymbolLine#${symbol.text}`;
       }
 
-      // handle line
+      // short line
       if (!addedEllipsis) {
         const currentItems = index + 1;
         const leftItems = totalItems - currentItems;
@@ -114,8 +118,10 @@ class DocumentSymbolLine implements Disposable {
           addedEllipsis = true;
           line =
             fullLine + `%#CocSymbolLine#${sep}%#CocSymbolLineEllipsis#%0@coc_symbol_line#expand@${maxItemsIndicator}%X`;
+          plainLine = fullLine + `%#CocSymbolLine#${sep}%#CocSymbolLineEllipsis#${maxItemsIndicator}`;
         } else {
           line = fullLine;
+          plainLine = plainFullLine;
         }
       }
     });
@@ -125,12 +131,17 @@ class DocumentSymbolLine implements Disposable {
       if (default_.length > 0) line = '%#CocSymbolLine#' + line;
       // not needed
       if (line) fullLine = line;
+
+      if (!plainLine) plainLine = line;
     }
 
     const buffer = workspace.getDocument(bufnr).buffer;
     try {
       await buffer.setVar('coc_symbol_line', line);
       await buffer.setVar('coc_symbol_line_full', fullLine);
+
+      await buffer.setVar('coc_symbol_line_plain', plainLine);
+      await buffer.setVar('coc_symbol_line_full_plain', plainFullLine); // useless
     } catch (e) {}
   }
 

@@ -8,8 +8,9 @@
 
 ## Setup
 
-add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline or
-neovim's winbar
+Add section `%{%get(b:, "coc_symbol_line", "")%}` to tabline/statusline or neovim's winbar.
+
+**NOTE**: `b:coc_symbol_line_plain` does't have clickable sections, maybe you need this if you are using vim.
 
 <details>
 <summary>lua snippet for neovim</summary>
