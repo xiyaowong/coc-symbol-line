@@ -23,6 +23,7 @@ function! coc_symbol_line#set_highlight()
   exe 'hi! CocSymbolLineSeparator     guifg='.s:a(['CocSymbolLineSeparator',  'CocSymbolLine'], 'fg') .' guibg='.bg
   exe 'hi! CocSymbolLineEllipsis      guifg='.s:a(['CocSymbolLineEllipsis',   'CocSymbolLine'], 'fg') .' guibg='.bg
 
+  " TODO: update treestiter group names
   exe 'hi! CocSymbolLineFile          guifg='.s:a(['CocSymbolFile',           'Statement'],     'fg') .' guibg='.bg
   exe 'hi! CocSymbolLineModule        guifg='.s:a(['CocSymbolModule'],        'fg')             .'    guibg='.bg
   exe 'hi! CocSymbolLineNamespace     guifg='.s:a(['CocSymbolNamespace',      'TSNamespace'],   'fg') .' guibg='.bg
