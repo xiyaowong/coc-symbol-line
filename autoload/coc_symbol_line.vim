@@ -8,13 +8,21 @@ function! coc_symbol_line#expand(minwid, clicks, mouse, modifiers)
   redraw
 endfunction
 
-function! s:a(groups, attr) " get highlight attribute
+function! s:a(groups, attr) " get gui attribute of highlight
+  let attr = a:attr =~ '#$' ? a:attr : a:attr.'#'
+
   for group in a:groups
-    let ret = synIDattr(synIDtrans(hlID(group)), a:attr)
-    if ret != ''
+    let ret = synIDattr(synIDtrans(hlID(group)), attr)
+    if ret =~ '^#'
       return ret
     endif
   endfor
+
+  if attr =~ '^fg'
+    return 'white'
+  endif
+
+  return 'NONE'
 endfunction
 
 function! coc_symbol_line#set_highlight()

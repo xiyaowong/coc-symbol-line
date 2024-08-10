@@ -2,6 +2,8 @@
 
 ![demo](https://user-images.githubusercontent.com/47070852/155291646-ec1f5623-63ab-4ff5-a48e-cd9670e5c39e.gif)
 
+This extension supports both Vim and Neovim.
+
 ## Install
 
 `:CocInstall coc-symbol-line`
@@ -83,6 +85,8 @@ Right click to select the range of this symbol.
 Please trigger completion in `coc-settings.json` to get details.
 
 ## Highlights
+
+Recommend `set termguicolors`
 
 - `CocSymbolLine`
 - `CocSymbolLineSeparator`
